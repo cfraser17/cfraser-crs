@@ -2,42 +2,43 @@ name: main
 on: push
 
 
-jobs:
-  test-infra:
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.9' 
-          architecture: 'x64' 
-      - name: test get-function
-        run: cd get-function && python test.py -v ./ && cd ../../
-      - name: test put-function
-        run: cd put-function && python test.py -v ./ && cd ../../
+# jobs:
+#   test-infra:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 2
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: '3.9' 
+#           architecture: 'x64' 
+#       - name: test get-function
+#         run: cd get-function && python test.py -v ./ && cd ../../
+#       - name: test put-function
+#         run: cd put-function && python test.py -v ./ && cd ../../
 
-  deploy-infra:
-      needs: test-infra
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-python@v2
-          with:
-            python-version: '3.9'
-            architecture: 'x64'
-        - uses: aws-actions/setup-sam@v1
-        - uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: us-east-1
-        - run: sam build
-          working-directory: 
-        - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
-          working-directory: 
+#   deploy-infra:
+#       needs: test-infra
+#       runs-on: ubuntu-latest
+#       steps:
+#         - uses: actions/checkout@v2
+#         - uses: actions/setup-python@v2
+#           with:
+#             python-version: '3.9'
+#             architecture: 'x64'
+#         - uses: aws-actions/setup-sam@v1
+#         - uses: aws-actions/configure-aws-credentials@v1
+#           with:
+#             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#             aws-region: us-east-1
+#         - run: sam build
+#           working-directory: 
+#         - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+#           working-directory: 
+  
   deploy-site:
-    needs: deploy-infra
+#    needs: deploy-infra
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -45,7 +46,7 @@ jobs:
         with:
           args: --delete
         env:
-          AWS_S3_BUCKET: crc-version-2
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: resume-site      
