@@ -9,12 +9,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup npm package
-        run: npm init -y && npm install cypress
-      - name: cypress open
-        run: cypress open
-      - name: Cypress run
-        run: cypress run --spec cypress/integration/textAPI.spec.js
+      - name: run cypress tests with chrome
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
 
 
   deploy-infra:
