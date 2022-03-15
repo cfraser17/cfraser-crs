@@ -4,17 +4,19 @@ on: push
 
 jobs:
   cypress-test:
+    name: Cypress test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+      - name: Setup npm package
+        run: npm init -y && npm install
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
           build: npm run build
           start: npm start
+          spec: tests/testAPI.js
 
   deploy-infra:
       needs: cypress-test
