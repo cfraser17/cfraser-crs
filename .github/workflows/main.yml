@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: cypress-io/github-action@v3
         with:
-          start: npm start
+          start: npm install cypress 
           browser: chrome
     
 
