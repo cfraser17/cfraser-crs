@@ -13,6 +13,9 @@ jobs:
         run: npm init -y && npm install cypress
       - name: Cypress run
         uses: cypress-io/github-action@v2
+        with: 
+           spec: cypress/integration/testAPI.spec.js
+           spec: tests/testAPI.spec.js
     
 
   deploy-infra:
