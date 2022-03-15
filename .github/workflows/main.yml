@@ -11,8 +11,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup npm package
         run: npm init -y && npm install cypress
-      - name: Cypress open
-        run: npx cypress open
       - name: Cypress run
         uses: cypress-io/github-action@v2
     
