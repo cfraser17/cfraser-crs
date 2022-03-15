@@ -12,7 +12,7 @@ jobs:
       - name: Setup npm package
         run: npm init -y && npm install cypress
       - name: Cypress open
-        run: cypress open
+        run: npx cypress open
       - name: Cypress run
         uses: cypress-io/github-action@v2
     
