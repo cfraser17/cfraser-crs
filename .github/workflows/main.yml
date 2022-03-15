@@ -7,11 +7,14 @@ jobs:
     name: Cypress test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v3
-        with:
-          start: npm install cypress 
-          browser: chrome
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup npm package
+        run: npm init -y && npm install cypress
+      - name: Cypress open
+        run: cypress open
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
     
 
   deploy-infra:
