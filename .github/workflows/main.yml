@@ -3,19 +3,17 @@ on: push
 
 
 jobs:
-  test-infra:
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
+  cypress-test:
+    name: Cypress test
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         with:
-          python-version: '3.9' 
-          architecture: 'x64' 
-      - name: test get-function
-        run: cd get-function && python test.py -v ./ && cd ../../
-      - name: test put-function
-        run: cd put-function && python test.py -v ./ && cd ../../
+          spec: tests/testAPI.js
 
   deploy-infra:
       needs: test-infra
