@@ -16,7 +16,7 @@ jobs:
           spec: tests/testAPI.js
 
   deploy-infra:
-      needs: test-infra
+      needs: cypress-test
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
