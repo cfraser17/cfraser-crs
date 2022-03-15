@@ -5,7 +5,7 @@
 workspace.code-workspace
 makefile
 tests/**
-
+.aws-sam
 
 
 ### Linux ###
