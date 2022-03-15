@@ -12,8 +12,6 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        with:
-          spec: tests/testAPI.js
 
   deploy-infra:
       needs: cypress-test
