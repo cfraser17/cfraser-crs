@@ -6,13 +6,11 @@ jobs:
   cypress-test:
     name: Cypress test
     runs-on: ubuntu-latest
+    container: cypress/included9.5.0
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup npm package
-        run: npm init -y && npm install cypress
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      - uses: actions/checkout@v1
+      - run: cypress run
+    
 
   deploy-infra:
       needs: cypress-test
