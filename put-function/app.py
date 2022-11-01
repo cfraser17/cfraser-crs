@@ -12,16 +12,22 @@ def lambda_handler(event, context):
     response = table.get_item(Key={
             'ID':'0'
     })
+    #sets variable 'record_count' to be the value of the variable 'repsonse'
     record_count = response['Item']['visitors']
+    #sets 'record_count' to be itself + 1
     record_count = record_count + 1
+    #prints value of 'record_count'
     print(record_count)
+    #changes the variable 'response' to now put the value of 'record_count' into the visitors table
     response = table.put_item(Item={
             'ID':'0',
             'visitors': record_count
     })
     
     return {
+        #return status code 200 "OKAY"
         'statusCode': 200,
+        
         'headers': {
             'Access-Control-Allow-Headers': 'Content-Type',
             'Access-Control-Allow-Origin': '*',
